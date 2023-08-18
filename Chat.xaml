@@ -1,0 +1,90 @@
+﻿<Window x:Class="IBC_Management_System.Chat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IBC_Management_System"
+       mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        ResizeMode="NoResize"
+        
+        Title="Chat" Height="900" Width="1600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#5069f4">
+            <Button Style="{StaticResource ResourceKey=BackButton}" Name="Back" Click="Back_Click"/>
+            <Button Style="{StaticResource ResourceKey=CloseBtn}" Content="X" Name="CloseApp" Click="CloseApp_Click"/>
+            <Button Style="{StaticResource ResourceKey=Minimize}" Content="-" Name="Minimize" Click="Minimize_Click" />
+        </Grid>
+        <Grid Grid.Row="1" Background="#394d68">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="Active"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           />
+            </Grid>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Text="Chat"
+                           FontSize="30"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           />
+            </Grid>
+            <Button Grid.Column="2" Style="{StaticResource ResourceKey=SnedBtn}" Content="Annoucements" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Bottom" Height="50" Width="200" Click="Button_Click_1"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Border Padding="10" Background="#394d68">
+                    <ListView Height="670" Background="White"
+                              x:Name="ListViewUser"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Border Padding="10" Background="#394d68" BorderThickness="0">
+                        <ListView Name="ListChatUser"  Margin="0,50,0,0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="MaxWidth" Value="2000"/>
+                                </Style>
+
+                            </ListView.ItemContainerStyle>
+
+                        </ListView>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1" Background="#394d68">
+                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0"  >
+                        <TextBox  Style="{StaticResource ResourceKey=tboxsend}"  Padding="5" KeyUp="TextChat_KeyUP" Name="TextChat"/>
+                        <Button  Style="{StaticResource ResourceKey=SnedBtn}" Margin="0 0 0 1" Content="Send" Click="Button_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

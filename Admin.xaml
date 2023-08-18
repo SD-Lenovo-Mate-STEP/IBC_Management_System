@@ -1,0 +1,847 @@
+﻿<Window x:Class="IBC_Management_System.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IBC_Management_System"
+        mc:Ignorable="d"
+        Title="Admin Panel" Height="900" Width="1600"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region Side Bar-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#5069f4">
+                <Button Style="{StaticResource BackButton}" x:Name="goBack_btn" Click="goBack_btn_Click"/>
+            </Grid>
+
+            <!--#region DropMenu-->
+            <Grid Grid.Row="1" Background="#5069f4">
+                <StackPanel Orientation="Vertical" Width="300">
+                    <Menu Height="790" 
+                          Background="Transparent">
+
+                        <Menu.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </Menu.ItemsPanel>
+
+                        <MenuItem Header="Home" Template="{StaticResource Menu_Template}" Click="home_btn_Click"/>
+
+                        <MenuItem Header="User" Template="{StaticResource Menu_SubMenu_Template}">
+                            <MenuItem Header="Create User" Template="{StaticResource Item_Template}" Click="createUser_btn_Click"/>
+                            <MenuItem Header="Create Role" Template="{StaticResource Item_Template}" Click="createRole_btn_Click"/>
+                            <MenuItem Header="User Control" Template="{StaticResource Item_Template}" Click="userControl_btn_Click"/>
+                        </MenuItem>
+
+                        <MenuItem Header="Branch Control" Template="{StaticResource Menu_SubMenu_Template}">
+                            <MenuItem Header="Create Branch" Template="{StaticResource Item_Template}" Click="createBranch_btn_Click"/>
+                            <MenuItem Header="Modify Branches" Template="{StaticResource Item_Template}" Click="modifyBranch_btn_Click"/>
+                        </MenuItem>
+
+                        <MenuItem Header="Product Control" Template="{StaticResource Menu_SubMenu_Template}">
+                            <MenuItem Name="createCategory" Header="Create Category" Template="{StaticResource Item_Template}" Click="createCategory_Click"/>
+                            <MenuItem Name="createProduct" Header="Create Product" Template="{StaticResource Item_Template}" Click="createProduct_Click"/>
+                            <MenuItem Name="modifyProduct" Header="Modify Product" Template="{StaticResource Item_Template}" Click="modifyProduct_Click"/>
+                            <MenuItem Name="productStockLevel" Header="Product Stock" Template="{StaticResource Item_Template}" Click="productStockLevel_Click"/>
+                        </MenuItem>
+
+                        <MenuItem Header="Search" Template="{StaticResource Menu_Template}" Click="search_btn_Click" />
+                        <MenuItem Name="chat" Header="Chat" Template="{StaticResource Menu_Template}" Click="chat_Click" />
+                    </Menu>
+                </StackPanel>
+            </Grid>
+            <!--#endregion-->
+
+        </Grid>
+        <!--#endregion-->
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions >
+                <RowDefinition Height="110"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--#region Home-->
+            <Grid Grid.Row="1" Name="home_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Image Source="Image/logo.png"
+                       Stretch="Uniform" Margin="100 50 0 0"
+                       HorizontalAlignment="Center" VerticalAlignment="Top"
+                       Width="800" Height="300"
+                       Opacity="0.9"/>
+
+                <Label Content="Welcome to the IBC Management System"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="50" FontWeight="Bold" Foreground="White"
+                       Opacity="0.9"/>
+
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Top Menu-->
+            <Grid Grid.Row="0" Background="#5069f4">
+                <StackPanel>
+                    <TextBlock Name="label_tb" Text="Admin Panel"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontSize="50" FontWeight="Bold"
+                               Foreground="White" Margin="25"/>
+                </StackPanel>
+
+                <Button Style="{StaticResource Minimize}" Name="Minimize"
+                        Content="-" Click="Minimize_Click">
+
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="30"/>
+                        </Style>
+                    </Button.Resources>
+
+                </Button>
+
+                <Button Style="{StaticResource CloseBtn}" Name="CloseApp"
+                        Content="X"
+                        Click="CloseApp_Click">
+
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="30"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region User Menu-->
+            <Grid Grid.Row="1" Name="user_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9" Height="790" VerticalAlignment="Top"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="169*"/>
+                        <RowDefinition Height="226*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                            <StackPanel Orientation="Horizontal" Margin="10 50 10 50">
+
+                                <TextBlock FontSize="30" Foreground="white"
+                                       Text="Username :" Margin="20 0 0 0 "
+                                       FontWeight="Bold" />
+
+                                <TextBox Width="340" Style="{StaticResource tb_TextHold}"
+                                         FontSize="20" Height="50"
+                                         VerticalAlignment="Top"
+                                         Margin="30 0 0 0" Name="add_username_tb"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="10 0 10 50">
+
+                                <TextBlock FontSize="30" Foreground="white"
+                                       Text="Password :" Margin="20 0 0 0 "
+                                       FontWeight="Bold"/>
+
+                                <TextBox Width="340" Style="{StaticResource tb_TextHold}"
+                                     FontSize="20" Height="50"
+                                     VerticalAlignment="Top"
+                                     Margin="40 0 0 0" Name="add_password_tb"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="10 0 10 0">
+
+                                <TextBlock FontSize="30" Foreground="white"
+                                       Text="Role :" Margin="20 0 0 0 "
+                                       FontWeight="Bold"/>
+
+                                <ComboBox Width="340" FontSize="20" Height="50"
+                                          VerticalAlignment="Top" Margin="110 0 0 0" Name="comboBox_add_role"/>
+                            </StackPanel>
+
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                            <StackPanel Orientation="Horizontal" Margin="10 50 10 50">
+
+                                <TextBlock FontSize="30" Foreground="white"  Text="FirstName :" Margin="20 0 0 0 " FontWeight="Bold"/>
+
+                                <TextBox Width="340"  Style="{StaticResource tb_TextHold}" FontSize="20" Height="50" VerticalAlignment="Top"
+                                         Margin="30 0 0 0" Name="add_firstname_tb"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="10 0 10 50">
+
+                                <TextBlock FontSize="30"
+                               Foreground="white"
+                               Text="LastName :"
+                               Margin="20 0 0 0 "
+                               FontWeight="Bold"/>
+
+                                <TextBox Width="340"  Style="{StaticResource tb_TextHold}" 
+                                         FontSize="20" Height="50" VerticalAlignment="Top"
+                                         Margin="35 0 0 0" Name="add_lastname_tb"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="10 0 10 0">
+
+                                <TextBlock FontSize="30" Foreground="white"
+                                           Text="PhoneNum :" Margin="20 0 0 0 "
+                                           FontWeight="Bold"/>
+
+                                <TextBox Width="330"  Style="{StaticResource tb_TextHold}"
+                                         FontSize="20" Height="50"
+                                         VerticalAlignment="Top"
+                                         Margin="25 0 0 0" Name="add_number_tb"/>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <StackPanel Margin="10">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20 0 0 0">
+
+                                <TextBlock FontSize="30" Foreground="white" Text="Email :" FontWeight="Bold"/>
+
+                                <TextBox Width="990"  Style="{StaticResource tb_TextHold}" FontSize="20"
+                                         Height="50" VerticalAlignment="Top" Margin="100 0 0 0" Name="add_email_tb"/>
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="20 40 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                <TextBlock FontSize="30" Margin="0 0 0 0"
+                                           Foreground="white" Text="Address:"
+                                           FontWeight="Bold" Width="123"/>
+
+                                <TextBox Width="990" Style="{StaticResource tb_TextHold}"
+                                         FontSize="20" Height="50" VerticalAlignment="Top"
+                                         Margin="70 0 0 0" Name="add_address_tb"/>
+
+                            </StackPanel>
+
+                            <Button Grid.ColumnSpan="2" Margin="0 30 0 0"
+                                    Style="{StaticResource roundBtn}"
+                                    Content="Add User" Name="AddUserbtn" Click="AddUserbtn_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Modify User-->
+            <Grid Grid.Row="1" Name="userControl_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <StackPanel Margin="0 0 0 30">
+
+                    <Grid Height="115" Width="1300">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="47*"/>
+                            <ColumnDefinition Width="53*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center">
+                            <Button Content="Delete User"  Style="{StaticResource roundBtn}"  Margin="15" Name="deleteUser_btn" Click="DeleteUser_btn_Click"/>
+                            <Button Content="Download User" Style="{StaticResource roundBtn}" Margin="15" Name="downloadUser_btn" Click="DownloadUser_btn_Click"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <TextBox Style="{StaticResource tb_TextHold}"
+                                     Width="530" Height="70" Margin="0"
+                                     Tag="Search User by Name" Name="searchUser_tb" TextChanged="searchUser_tb_TextChanged"/>
+
+                            <Button x:Name="search_user" Content="Search" 
+                                    Style="{StaticResource roundBtn}" 
+                                    Width="128" Margin="20 20 20 20" Click="user_search_click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--#region Control Button-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="700"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="20 20 0 0" Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Username :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_username_tb" Style="{StaticResource tb_TextHold}" Tag="input username"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="Password :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_password_tb" Style="{StaticResource tb_TextHold}" Tag="input password"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="First Name :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_firstname_tb" Style="{StaticResource tb_TextHold}" Tag="input firstname"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="Last Name :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_lastname_tb" Style="{StaticResource tb_TextHold}" Tag="input Lastname"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="Phone No :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_number_tb" Style="{StaticResource tb_TextHold}" Tag="input phone number"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="Email :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_email_tb" Style="{StaticResource tb_TextHold}" Tag="input email"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="Address :" Style="{StaticResource lableStyle}"/>
+                                <TextBox x:Name="edit_address_tb" Style="{StaticResource tb_TextHold}" Tag="input address"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <Label Content="Role :" Style="{StaticResource lableStyle}"/>
+                                <ComboBox Width="200" Height="50" Name="comboBox_select_role"/>
+                                <Button Name="save_edit" Content="Save"
+                                        Style="{StaticResource roundBtn}"
+                                        Height="50" Width="200" Margin="20 0 0 0" Click="Save_edit_Click"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <DataGrid Margin="10" Grid.Column="1" Name="datagrid_user" Width="670" AutoGenerateColumns="False" SelectionChanged="Datagrid_user_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding FirstName}" Header="FirstName" Width="*" FontSize="20"  />
+                                <DataGridTextColumn Binding="{Binding LastName}" Header="LastName" Width="*" FontSize="20"/>
+                                <DataGridTextColumn Binding="{Binding Username}" Header="Username" Width="*" FontSize="20"/>
+                                <DataGridTextColumn Binding="{Binding Password}" Header="Password" Width="*" FontSize="20"/>
+                                <DataGridTextColumn Binding="{Binding Role.Description}" Header="Role" Width="*" FontSize="20"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
+                    </Grid>
+                    <!--#endregion-->
+                </StackPanel>
+
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Role Menu-->
+            <Grid Grid.Row="1" Name="role_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 85 0 0" >
+                    <StackPanel Orientation="Horizontal" Margin="10 50 10 50">
+
+                        <TextBlock FontSize="30"
+                               Foreground="white"
+                               Text="Role Description :"
+                               Margin="20 0 0 0 "
+                               FontWeight="Bold"/>
+
+                        <TextBox Width="340" FontSize="20"
+                                 Height="50" VerticalAlignment="Top"
+                                 Margin="30 0 0 0" Name="descirptionTextBox"
+                                 Style="{StaticResource tb_TextHold}"/>
+                    </StackPanel>
+                    <!--#region checkbox-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Seller Checkbox -->
+                        <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                     Height="40" 
+                                     Margin="5 10 0 10">
+                            <CheckBox Content="Seller" Foreground="white" Name="seller_cb"/>
+                        </Viewbox>
+                        <!-- Reporter Checkbox -->
+                        <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" 
+                                     Height="40" >
+                            <CheckBox Content="Reporter" Foreground="white" Name="report_cb"/>
+                        </Viewbox>
+                        <!-- CRUD Checkbox -->
+                        <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                     Height="40" 
+                                     Margin="11 13 0 0">
+                            <CheckBox Content="CRUD" Foreground="white" Name="crud_cb"/>
+                        </Viewbox>
+                        <!-- Purchaser Checkbox -->
+                        <Viewbox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" 
+                                     Height="40"
+                                     Margin="15 13 0 0">
+                            <CheckBox Content="Purchaser" Foreground="white" Name="purchase_cb"/>
+                        </Viewbox>
+                    </Grid>
+                    <!--#endregion-->
+                    <Button Name="addRole_btn" Content="Add Role" Style="{StaticResource roundBtn}" Margin="0 80" Click="AddRole_btn_Click"/>
+                </StackPanel>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Add Branch-->
+            <Grid Grid.Row="1" Name="branch_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid x:Name="list_branch">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="148*"/>
+                        <RowDefinition Height="200*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Margin="15" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Label Content="Address :" Width="200"
+                                   Style="{StaticResource lableStyle}"/>
+
+                            <TextBox x:Name="branch_address_tb" Width="900" Height="80"
+                                     Style="{StaticResource tb_TextHold}" Margin="50 0 0 0"
+                                     Tag="input Address"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <Label Content="Phone Number :" Width="200"
+                                   Style="{StaticResource lableStyle}"/>
+
+                            <TextBox x:Name="branch_number_tb" Width="900" Height="80"
+                                     Style="{StaticResource tb_TextHold}" Margin="50 0 0 0"
+                                     Tag="input Number"/>
+                        </StackPanel>
+
+                        <Button x:Name="add_branch_bt" Content="Add Branch" 
+                                Style="{StaticResource roundBtn}" Width="400"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="Add_branch_bt_Click"/>
+                    </StackPanel>
+
+                    <DataGrid Name="branch_datagrid" Margin="15,15,15,15"
+                              Grid.Row="1" AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="100" />
+                            <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="500"/>
+                            <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Branch Modify-->
+            <Grid Grid.Row="1" Name="modify_branch_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="148*"/>
+                        <RowDefinition Height="200*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Margin="15" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Label Content="Address :" Width="200"
+                                   Style="{StaticResource lableStyle}"/>
+
+                            <TextBox x:Name="edit_branch_address_tb" Width="900" Height="80"
+                                     Style="{StaticResource tb_TextHold}" Margin="50 0 0 0"
+                                     Tag="input Address"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <Label Content="Phone Number :" Width="200"
+                                   Style="{StaticResource lableStyle}"/>
+
+                            <TextBox x:Name="edit_branch_number_tb" Width="900" Height="80"
+                                     Style="{StaticResource tb_TextHold}" Margin="50 0 0 0"
+                                     Tag="input Number"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0" HorizontalAlignment="Center">
+                            <Button x:Name="edit_branch_bt" Content="Edit Branch" 
+                                Style="{StaticResource roundBtn}" Margin="30 0 0 0" Click="Edit_branch_bt_Click"/>
+
+                            <Button x:Name="delete_branch_bt" Content="Delete Branch" 
+                                Style="{StaticResource roundBtn}" Margin="30 0 0 0" Click="Delete_branch_bt_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <DataGrid Name="modify_branch_datagrid" Margin="15,15,15,15"
+                              Grid.Row="1" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionChanged="Modify_branch_datagrid_SelectionChanged">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="100" />
+                            <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="500"/>
+                            <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Category-->
+            <Grid Grid.Row="1" Name="create_category_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid x:Name="list_category">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="116*"/>
+                        <RowDefinition Height="279*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Margin="15,15,15,15" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Label Content="Category :" Width="200"
+                                   Style="{StaticResource lableStyle}"/>
+
+                            <TextBox x:Name="category_name_tb" Width="900" Height="80"
+                                     Style="{StaticResource tb_TextHold}" Margin="50 0 0 0"
+                                     Tag="input Category"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="30" HorizontalAlignment="Center">
+
+                            <Button x:Name="add_category_bt" Content="Add Category" 
+                                Style="{StaticResource roundBtn}" Margin="0" Width="350"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="Add_category_bt_Click"/>
+
+                            <Button x:Name="edit_category_bt" Content="Edit Category" 
+                                Style="{StaticResource roundBtn}" Margin="30 0 0 0" Width="350"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="Edit_category_bt_Click"/>
+
+                            <Button x:Name="delete_category_bt" Content="Delete Category" 
+                                Style="{StaticResource roundBtn}" Margin="30 0 0 0" Width="350"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="Delete_category_bt_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <DataGrid Name="category_datagrid" Margin="15,15,15,15"
+                              Grid.Row="1" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionChanged="Category_datagrid_SelectionChanged">
+                        <DataGrid.ColumnHeaderStyle>
+
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="100" />
+                            <DataGridTextColumn Header="Category Name" Binding="{Binding Name}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Add Product-->
+
+            <Grid Grid.Row="1" Name="add_product_grid" Visibility="Visible">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid x:Name="add_product">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0 90 0 0">
+                        <StackPanel Orientation="Horizontal" Margin="15">
+                            <Label Content="Product Name : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <TextBox Name="prod_name_tb" Style="{StaticResource ResourceKey=tb_TextHold}" Tag="Set Product Name"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="15">
+                            <Label Content="Category : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <ComboBox Name="prod_category_cb" Width="300" Height="50" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="15">
+                            <Label Content="Product Price : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <TextBox Name="prod_price_tb" Style="{StaticResource ResourceKey=tb_TextHold}" Tag="Set Product price" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="15">
+                            <Label Content="Barcode : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <TextBox Name="prod_barcode_tb" 
+                                     Style="{StaticResource ResourceKey=tb_TextHold}" 
+                                     Tag="Set Product barcode" />
+                        </StackPanel>
+
+                        <Button Name="save_product" Width="350" Height="90" 
+                                Margin="0 50 0 0" Style="{StaticResource roundBtn}"
+                                Content="Save Product" Click="save_product_Click"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0 20 0 0">
+                        <Border BorderThickness="3" BorderBrush="White"
+                                Margin="30 15 30 30"  Width="583" Height="600">
+                            <Image Name="product_img" Width="583" Height="600"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="upload_pic" Width="350" Height="90" 
+                                Margin="0" Style="{StaticResource roundBtn}"
+                                Content="Upload Picture" Click="upload_pic_Click"/>
+
+
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <!--endregion-->
+
+            <!--#region Modify Product-->
+            <Grid Grid.Row="1" Name="modify_product_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid x:Name="modify_product">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal" Margin="15 30 15 15" HorizontalAlignment="Center">
+                            <Button Name="edit_product" Content="Edit Product"
+                                    Margin="10" Width="280" Style="{StaticResource roundBtn}" Click="edit_product_Click"/>
+                            <Button Name="delete_product" Content="Delete Product"
+                                    Margin="10" Width="280" Style="{StaticResource roundBtn}" Click="delete_product_Click"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="15 30 15 15">
+                            <Label Content="Product Name : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <TextBox Name="edit_prodName_tb" 
+                                     Style="{StaticResource ResourceKey=tb_TextHold}" Tag="Set Product Name"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="15 30 15 15">
+                            <Label Content="Category : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <ComboBox Name="edit_prodCategory_cb" 
+                                      Width="400" Height="50"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"  Margin="15 30 15 15">
+                            <Label Content="Product Price : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <TextBox Name="edit_prodPrice_tb"
+                                     Style="{StaticResource ResourceKey=tb_TextHold}" Tag="Set Product price" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"  Margin="15 30 15 15">
+                            <Label Content="Barcode : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <TextBox Name="edit_prodBarcode_tb"
+                                     Style="{StaticResource ResourceKey=tb_TextHold}" Tag="Set Product Barcode" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="15 30 15 15">
+                            <Label Content="Product Pic : " Style="{StaticResource lableStyle}" 
+                                   Margin="10 10 30 10" Width="180"/>
+                            <Button Name="change_prod_pic" Width="400" Height="50"
+                                Margin="0" Style="{StaticResource roundBtn}"
+                                Content="Change Picture" Click="change_prod_pic_Click"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0 20 0 20">
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <DataGrid Grid.Row="0" Name="product_list" Width="600" Height="300" 
+                                      Margin="0 45 0 0" AutoGenerateColumns="False" SelectionChanged="product_list_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Category" Width="*" Binding="{Binding Category.Name}"/>
+                                    <DataGridTextColumn Header="Price" Width="*" Binding="{Binding Price}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Grid Grid.Row="1">
+                                <StackPanel Grid.Column="1" Margin="10 10 10 10">
+                                    <Label Content="Image" Style="{StaticResource lableStyle}" Margin="10" HorizontalAlignment="Left"/>
+                                    <Image Width="587" Height="320" Name="product_img_old"/>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Search-->
+            <Grid Grid.Row="1" Name="search_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" Margin="30 0 30 0">
+                            <TextBox Width="450" Height="50"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="5" Style="{StaticResource tb_TextHold}" Tag="Search"  Name="TestTextbox" TextChanged="TestTextbox_TextChanged"/>
+
+                            <ComboBox Name="available_search_cb" 
+                                      Margin="30 0 30 0" VerticalContentAlignment="Center"
+                                      Width="180" Height="50" Tag="List">
+
+                                <ComboBoxItem Content="User"/>
+                                <ComboBoxItem Content="Product"/>
+                                <ComboBoxItem Content="Branch"/>
+
+                            </ComboBox>
+
+                            <Button x:Name="search_all_bt" Content="Search"
+                                    Height="55" Width="250"
+                                    Style="{StaticResource roundBtn}" Margin="0 0 30 0" Click="search_all_bt_Click"/>
+
+                            <Button x:Name="print_search_bt" Content="Download"
+                                    Height="55" Width="250"
+                                    Style="{StaticResource roundBtn}" Margin="0" Click="Print_search_bt_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Border CornerRadius="15" BorderThickness="4"
+                                BorderBrush="White" Margin="30,30,30,30"
+                                Background="Transparent">
+                            <DataGrid  Margin="5,6,5,5" Name="datagrid_all" >
+
+                            </DataGrid>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Stock-->
+            <Grid Grid.Row="1" Name="stock_grid" Visibility="Hidden">
+                <Image Source="Image/backgroundImage.jpg"
+                       Stretch="Fill"
+                       Opacity="0.9"/>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="235*"/>
+                        <RowDefinition Height="555*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Style="{StaticResource lableStyle}" FontSize="30" Margin="0"
+                               Content="Set Stock Level:" Width="220" Height="50"/>
+                        <TextBox x:Name="stock_level" Style="{StaticResource tb_TextHold}" Margin="20 0 0 0"
+                                 Width="550" Height="80"/>
+                        <Button x:Name="save_level_stock" Style="{StaticResource roundBtn}" Content="Save" Margin="30 0 0 0" Click="save_level_stock_Click"/>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" Margin="10" Name="list_stock" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
+                            <DataGridTextColumn Header="Product Name" Binding="{Binding Product.Name}" Width="*"/>
+                            <DataGridTextColumn Header="Product Quantity" Binding="{Binding Quantity}" Width="*"/>
+                            <DataGridTextColumn Header="Product Level" Binding="{Binding Level}" Width="*"/>
+                            <DataGridTextColumn Header="Branch" Binding="{Binding Brand.Address}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+        </Grid>
+    </Grid>
+</Window>

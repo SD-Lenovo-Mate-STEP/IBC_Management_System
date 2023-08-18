@@ -1,0 +1,190 @@
+﻿<Window x:Class="IBC_Management_System.Sales_Form"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IBC_Management_System"
+    mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+       
+        Title="Sales" Height="900" Width="1600" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="180"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#5069f4">
+                <Button Style="{StaticResource ResourceKey=BackButton}" Name="back" Click="back_Click"/>
+                <Button Content="Chat" HorizontalAlignment="Left" Height="80" Margin="529,0,0,0" VerticalAlignment="Center" Width="234" FontSize="25" Click="Button_Click_1"/>
+            </Grid>
+            <!--Button type-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Style="{StaticResource ResourceKey=tbox}" Margin="0" Name="textbox_search" TextChanged="textbox_search_TextChanged"/>
+                        <Button  Style="{StaticResource ResourceKey=Search_Button}" Content="Search" Foreground="White" Name="search" Click="search_Click" />
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0" >
+
+                    <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Horizontal" Name="CateGory_Panel" />
+                    </ScrollViewer>
+
+                    <!--<Button Style="{StaticResource ResourceKey=Button_Sales}" Margin="10 0 0 0"/>
+                        <Button Style="{StaticResource ResourceKey=Button_Sales}" Margin=" 10 0 0 0"/>
+                        <Button Style="{StaticResource ResourceKey=Button_Sales}" Margin="10 0 0 0"/>
+                        <Button Style="{StaticResource ResourceKey=Button_Sales}" Margin="10 0 0 0"/>-->
+
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="300"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Name="Sale_List_DataGrid" SelectionChanged="Sale_List_DataGrid_SelectionChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#5069f1" >
+                        <StackPanel Margin="30" Visibility="Visible" Name="Back_Grid_Item">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Total :" FontSize="20" Foreground="Yellow" FontWeight="Bold" />
+                                <TextBlock Text="0.0" FontSize="20" Foreground="Yellow" FontWeight="DemiBold" Margin="500 0 0 0" Name="Total"/>
+                                <TextBlock Text="$" FontSize="20" Foreground="Yellow" FontWeight="DemiBold" Margin="0 0 0 0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                                <TextBlock Text="Total item : " FontSize="20" Foreground="Yellow" FontWeight="Bold" />
+                                <TextBlock Text="0" FontSize="20" Foreground="Yellow" FontWeight="DemiBold" Margin="460 0 0 0" Name="Totalitem"/>
+                            </StackPanel>
+                            <StackPanel Visibility="Visible" Margin="0 10 0 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Money Received : " Foreground="Yellow" FontSize="20" FontWeight="Bold" Margin="0 10 0 0"/>
+                                    <TextBox Style="{StaticResource ResourceKey=tbox}" Width="400" Height="50" Margin="70 0 0 0" Name="Customer_Paid" TextChanged="Customer_Paid_TextChanged"/>
+                                    <TextBlock Text="$" Foreground="Yellow" FontSize="20" FontWeight="Bold" Margin="10 10 0 0"/>
+                                </StackPanel>
+                                <StackPanel Margin="0 30 0 0">
+
+                                    <Button  Style="{StaticResource ResourceKey=Btn_print}" Margin="0 10 0 0" Content="Print" Click="Button_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Visibility="Hidden" Name="Start_Printing_Grid" >
+                            <StackPanel Margin="300 0 0 0" Name="Button_PrintUI">
+                                <Button Style="{StaticResource Btn_print}" Width="200" Content="PrintPDF" Margin="0 70 0 0 " Name="PrintPDF_Invoice_Button" Click="PrintPDF_Invoice_Button_Click"/>
+                                <!--<Button Style="{StaticResource Btn_print}" Width="200" Content="Print Image" Margin="0 30 0 0" Name="Print_Image_Invoice_Button" Click="Print_Image_Invoice_Button_Click"/>-->
+                                <Button Style="{StaticResource Btn_print}" Width="200" Content="Exit" Margin="0 60 0 0" Name="Exit_Invoice_Button" Click="Exit_Invoice_Button_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#5069f4">
+                <TextBlock Text="Customer : " FontSize="20" Margin="30 40 0 0" Foreground="White" Name="Customer_Detail_Label"/>
+                <Button Width="200" Height="70" Content="Add Customer" Background="Transparent" BorderThickness="2" BorderBrush="White" Foreground="White" FontSize="20" Name="Addcustomer" Click="Addcustomer_Click"/>
+                <Button Style="{StaticResource ResourceKey=CloseBtn}" Content="X" Name="Closeapp" Click="Closeapp_Click"/>
+                <Button Style="{StaticResource ResourceKey=Minimize}" Content="-" Name="Minimize" Click="Minimize_Click"/>
+
+            </Grid>
+            <!--Salse UI-->
+            <Grid Grid.Row="1" Visibility="Visible" Name="Product_Detail_Show">
+                <TabControl>
+                    <TabItem Header="UserControl">
+                        <Grid Background="#FFE5E5E5" >
+
+                            <ScrollViewer  Name="Srocllviewer" CanContentScroll="False" VerticalScrollBarVisibility="Auto">
+                                <!--<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Height="770" Width="790">-->
+                                <StackPanel Name="UserControl_Product_Show" Width="790"/>
+                                <!--</ScrollViewer>-->
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="DateGrid" Name="DataGrid_Product_Show">
+                        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="Product_DataGrid" SelectionChanged="Product_DataGrid_SelectionChanged"/>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Row="1" Visibility="Hidden" Name="Invoice_Detail_Show">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="Customer : " FontSize="25" FontWeight="Bold"/>
+                            <TextBlock Text="customername" FontSize="25" Width="350" Name="Invoice_Customer_Name_Label"/>
+                            <TextBlock Text="invoiceID : " Margin="0 0 0 0" FontSize="25" FontWeight="Bold"/>
+                            <TextBlock Text="#111111" FontSize="25" Name="Invoie_InvoiceID_Label"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="Phonenumber or email : " FontSize="25" FontWeight="Bold"/>
+                            <TextBlock Text="0968822032" FontSize="25" Name="Invoice_Customer_Phone_Email_Label"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="Date : " FontSize="25" FontWeight="Bold" Margin="0 0 0 0" />
+                            <TextBlock Text="10/10/1000" FontSize="25" FontWeight="DemiBold" Name="Invoice_Date_Label"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                            <TextBlock Text="Seller : " FontSize="25" FontWeight="Bold" Margin="10 0 0 0"/>
+                            <TextBlock Text="name" FontSize="25" FontWeight="DemiBold" Width="380" Margin="10 0 0 0" Name="Invoice_Seller_Name_Label"/>
+                            <TextBlock Text="ID : " FontSize="25" FontWeight="Bold" Margin="0 0 0 0"/>
+                            <TextBlock Text="name" FontSize="25" FontWeight="DemiBold" Margin="10 0 0 0" Name="Invoice_Seller_ID_Label"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid Name="Invoice_Print_DataGrid">
+                        <DataGrid.Columns>
+                            <!--<DataGridTextColumn Header="Id" Width="50" />
+                            <DataGridTextColumn Header="Name" Width="200"/>
+                            <DataGridTextColumn Header="Quantity" Width="200"/>
+                            <DataGridTextColumn Header="Price" Width="200"/>-->
+                            <!--<DataGridTextColumn Header="Total Price" Width="200"/>-->
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                            <TextBlock Text="Money Received : " FontSize="25" FontWeight="Bold" Margin="10 0 0 0"/>
+                            <TextBlock Text="0" FontSize="25" FontWeight="DemiBold" Name="Invoice_Pay_Label"/>
+                            <TextBlock Text="$" FontSize="25" FontWeight="DemiBold" Margin="0 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Visibility="Visible" Name="Money_Give_Back_Panel" Margin="0 10 0 0">
+                            <TextBlock Text="Total : " FontSize="25" FontWeight="Bold" Margin="10 0 0 0"/>
+                            <TextBlock Text="0" FontSize="25" FontWeight="DemiBold" Margin="10 0 0 0" Name="Invoice_Total_Label"/>
+                            <TextBlock Text="$" FontSize="25" FontWeight="DemiBold" Margin="0 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Visibility="Visible" Margin="0 10 0 0">
+                            <TextBlock Text="Money Return : " FontSize="25" Margin="10 0 0 0" FontWeight="Bold"/>
+                            <TextBlock Text="0" FontSize="25" FontWeight="DemiBold" Margin="10 0 0 0" Name="Invoice_Money_Give_Back_Label"/>
+                            <TextBlock Text="$" FontSize="25" FontWeight="DemiBold" Margin="0 0 0 0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

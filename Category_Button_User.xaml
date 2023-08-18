@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="IBC_Management_System.Category_Button_User"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IBC_Management_System"
+              mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="320" Loaded="UserControl_Loaded">
+    <Grid Width="300">
+        <Button Content="Button" Click="Button_Click" Name="Category_Text" Style="{StaticResource Button_Sales}" Height="75" Width="150" Margin="5 0 0 0"/>
+    </Grid>
+</UserControl>

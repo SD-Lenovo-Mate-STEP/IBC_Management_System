@@ -1,0 +1,198 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--For all button-->
+    <ImageBrush x:Key="backArrow" ImageSource="\Image\ArrowLeft.png" Stretch="Uniform"/>
+    
+    <Style x:Key="BackButton" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="white"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="border"  
+                            Background="{StaticResource backArrow}"
+                            Width="80" />
+            
+                </ControlTemplate>
+         
+            </Setter.Value>
+     
+          
+        </Setter>
+    </Style>
+    <!--Close buttom-->
+    <Style x:Key="CloseBtn" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="65"/>
+        <Setter Property="Width" Value="65"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0 0 10 0 "/>
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Name="border" CornerRadius="30" 
+                            Background="Transparent"
+                            BorderBrush="White"
+                            BorderThickness="5"
+                            >
+                        <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                    </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="red" TargetName="border"/>
+                        </Trigger>
+                      
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Minimize btn-->
+    <Style x:Key="Minimize" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="65"/>
+        <Setter Property="Width" Value="65"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="50"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0 0 100 0 "/>
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Name="border" CornerRadius="30" 
+                            Background="Transparent"
+                            BorderBrush="White"
+                            BorderThickness="5"
+                            >
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Top"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="lightgreen" TargetName="border"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Btn Send-->
+    <Style x:Key="SnedBtn" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="71"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Foreground" Value="black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Name="border" CornerRadius="0 10 10 0"
+                                Background="White"
+                                BorderThickness="1"/>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#5069f4" TargetName="border"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Forget password-->
+    <Style x:Key="forgetbtn" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="Margin" Value="0 50 0 0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border 
+                            BorderThickness="0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    <!--Login button-->
+    <Style x:Key="Loginbtn" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="Margin" Value="0 50 0 0"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="white"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Name="border"
+                            BorderThickness="2"
+                            BorderBrush="blue"
+                            Background="#5069f4"
+                            CornerRadius="30">
+                        
+                         </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PC_button" TargetType="Button">
+        <Setter Property="Margin" Value="0 80 0 0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border Width="280" Height="100" Background="Transparent" />
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

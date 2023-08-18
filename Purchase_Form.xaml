@@ -1,0 +1,177 @@
+﻿<Window x:Class="IBC_Management_System.Purchase_Form"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IBC_Management_System"
+       mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="900" Width="1600" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#5069f4">
+            <Button Style="{StaticResource BackButton}"  Name="Back" Click="Back_Click_1"/>
+            <TextBlock  Text="Purchase Modle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" FontWeight="Bold" Foreground="White" Name="label_text"/>
+            <Button Style="{StaticResource CloseBtn}" Content="X" Name="Closeapp" Click="Closeapp_Click_1"/>
+            <Button Style="{StaticResource Minimize}" Content="-" Name="Minimize" Click="Minimize_Click_1"/>
+            <Button Style="{StaticResource Btn_print}" Content="Chat" x:Name="ChatButton" Click="ChatButton_Click" Margin="1123,20,217,20"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Background="#5069f4">
+                <StackPanel>
+                    <Button Style="{StaticResource PC_button}" Content="Warehouse" Name="Warehouse" Click="Warehouse_Click"/>
+                    <Button Style="{StaticResource PC_button}" Content="Purchase" Name="Purchase" Click="Purchase_Click"/>
+                    <Button Style="{StaticResource PC_button}"  Content="Distribution" Name="Disribution" Click="Disribution_Click"/>
+                    <Button Style="{StaticResource PC_button}" Content="Supplier" Name="Supplier" Click="Supplier_Click"/>
+                </StackPanel>
+            </Grid>
+            <!--Warehouse UI-->
+            <Grid Grid.Column="1" Name="WarehouseUI" Visibility="Hidden">
+                <DataGrid AutoGenerateColumns="True" Name="WarehouseDataGrid">
+                    <!--<DataGrid.Columns>
+                        <DataGridTextColumn Width="100" Header="Product ID" Binding="{Binding Product.Id}" />
+                        <DataGridTextColumn Width="350" Header="Product Name" Binding="{Binding Product.Name}" />
+                        <DataGridTextColumn Width="250" Header="Total Quantity" Binding="{Binding Quantity}" />
+                    </DataGrid.Columns>-->
+                </DataGrid>
+            </Grid>
+            <!--PurchaseUI-->
+            <Grid Grid.Column="1" Name="PurchaseUI" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#78a0ad">
+                    <StackPanel Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Date : " FontSize="20" FontWeight="Bold" Margin="50 0 0 0" Foreground="White"/>
+                            <TextBlock Text="8/8/2023" FontSize="20" FontWeight="DemiBold" Margin="40 0 0 0" Foreground="White" Name="datedisplay"/>
+                            <TextBlock FontSize="20" FontWeight="Bold" Margin="700 0 0 0" Foreground="White"/>
+                            <!--<TextBlock Text="Dainosur Rrr" FontSize="20" FontWeight="DemiBold" Foreground="White"/>-->
+                            <TextBlock x:Name="username_textblock" FontSize="20" Foreground="White" > </TextBlock>
+                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <TextBlock Text="Product" FontSize="20" FontWeight="Bold" Margin="200 0 0 0" Foreground="White"/>
+                            <ComboBox Width="200" Margin="20 0 0 0" Name="productCombobox"/>
+                            <TextBlock Text="Cost : " Margin="200 0 0 0" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                            <TextBox  Width="300" Style="{StaticResource tbox}" PreviewTextInput="cost_PreviewTextInput" Margin="70 0 0 0" Height="30" Name="cost" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <TextBlock Text="Supplier" FontSize="20" FontWeight="Bold" Margin="200 0 0 0" Foreground="White"/>
+                            <ComboBox Width="200" Margin="20 0 0 0" Name="suppierCombobox" SelectionChanged="suppierCombobox_SelectionChanged"/>
+                            <TextBlock Text="Quantity ; " Margin="200 0 0 0" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                            <TextBox  Width="300" Style="{StaticResource tbox}" Margin="26 0 0 0" Height="30" Name="qty" PreviewTextInput="qty_PreviewTextInput" FontSize="20"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Button Style="{StaticResource Btn_print}" Margin="0 40 0 0" Content="Add" Name="Add" Click="Add_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid Name="datagridviews" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="50" Header="Id" Binding="{Binding Id}" />
+                            <DataGridTextColumn Width="150" Header="ProductName" Binding="{Binding ProductName}" />
+                            <DataGridTextColumn Width="150" Header="SupplierName" Binding="{Binding SupplierName}" />
+                            <DataGridTextColumn Width="150" Header="QTY" Binding="{Binding QTY}" />
+                            <DataGridTextColumn Width="150" Header="Cost" Binding="{Binding Cost}" />
+                            <DataGridTextColumn Width="150" Header="Amount" Binding="{Binding Amount}" />
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+                <Grid Grid.Row="2 " Background="#78a0ad">
+                    <StackPanel Margin="10">
+                        <StackPanel Orientation="Horizontal" Margin="0 50 0 0">
+                            <Button Content="Print Invoice" Style="{StaticResource Btn_print}" Margin="60 0 0 0" Name="Print" Click="Print_Click"/>
+                            <Button Content="Finish" Style="{StaticResource Btn_print}" Margin="60 0 0 0" Name="Finish" Click="Finish_Click"/>
+                            <TextBlock Text="Total Amount :  " FontSize="30" Margin="100 10 0 0" Foreground="White" FontWeight="Bold" />
+                            <TextBox Style="{StaticResource tbox}" Margin="0" Width="300" Name="Total_Purchase"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <!--DisributionUI-->
+            <Grid Grid.Column="1" Name="DisributionUI" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="500"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#78a0ad">
+                    <StackPanel Margin="20">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Product" FontSize="20" Foreground="White" Margin="30 0 0 0" FontWeight="Bold"/>
+                            <ComboBox Name="ProductCB" Width="300" Margin="40 0 0 0"></ComboBox>
+                            <TextBlock Text="Disribution : " FontSize="20" FontWeight="Bold" Foreground="White" Margin="400 0 0 0"/>
+                            <TextBlock Text="Date" FontSize="20" FontWeight="DemiBold" Foreground="White"  Margin="50 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Quantity" FontSize="20" FontWeight="Bold" Margin="30 30 0 0" Foreground="White" />
+                            <TextBox  Name="QuantityTB" Style="{StaticResource tbox}" Height="30" Width="300" Margin="30 30 0 0" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Disrbution To : " FontSize="20" Foreground="White" FontWeight="Bold" Margin="30 20 0 0"/>
+                            <ComboBox Name="BranchCB" Width="300" Height="30" Margin="10 20 0 0" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="150 0 0 0">
+                            <Button Style="{StaticResource Btn_print}" Content="Add" x:Name="AddDistribution" Click="AddDistribution_Click" Height="52" Margin="400 50 0 0 "/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid Name="Disributiondatagrid" AutoGenerateColumns="True"></DataGrid>
+                </Grid>
+            </Grid>
+            <!--SupplierUI-->
+            <Grid Grid.Column="1" Name="SupplierUI" Visibility="Hidden" >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="400"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#78a0ad">
+                    <StackPanel  Margin="20">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Name : " FontSize="20" FontWeight="Bold" Foreground="White" Margin="10 0 0 0"/>
+                            <TextBox Name="NameTB" Style="{StaticResource tbox}" Margin="137 0 0 0" Width="300" Height="30" FontSize="20" />
+                            <TextBlock  FontSize="20" Margin="400 0 0 0" Foreground="White" Text="Date : "  FontWeight="Bold"/>
+                            <TextBlock FontSize="20" Margin="10 0 0 0" Foreground="White" Text="8/8/2023" FontWeight="DemiBold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <TextBlock Text="Phone Number : " Margin="10 0 0 0" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                            <TextBox Name="PhonenumberTB" Style="{StaticResource tbox}" Margin="50 0 0 0" Width="300" Height="30" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                            <TextBlock Text="Address : " FontSize="20" FontWeight="Bold" Foreground="White" Margin="10 0 0 0"/>
+                            <TextBox Name="AddressTB" Style="{StaticResource tbox}" Height="30" Margin="118 0 0 0" Width="300"  FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10 30 0 0">
+                            <TextBlock Text="Email : " FontSize="20" FontWeight="Bold" Foreground="White" />
+                            <TextBox Name="EmailTB" Style="{StaticResource tbox}" Height="30" Margin="143 0 0 0" Width="300" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="300 40 0 0 " >
+                            <Button Style="{StaticResource Btn_print}" Margin="0" Content="ADD" Click="AddSupplier_Click"/>
+                            <Button Style="{StaticResource Btn_print}" Content="EDIT" Name="EditSupplier" Click="EditSupplier_Click" Margin="100 0 0 0" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid Name="SupplierDataGrid" SelectionChanged="SupplierDataGrid_SelectionChanged">
+
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

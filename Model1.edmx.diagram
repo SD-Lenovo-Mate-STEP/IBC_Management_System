@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9875627e1cee416d82d6e10f636f5b04" Name="Diagram1">
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Announcement" Width="1.5" PointX="7.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Branch" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Category" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Customer" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Distribution" Width="1.5" PointX="11.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Invoice" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Product" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Purchase" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Role" Width="1.5" PointX="1.5" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Sale" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Stock" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Supplier" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.User" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBC_STOREIIModel.Warehouse" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Distributions_dbo_Branches_BranchId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Invoices_dbo_Branches_BranchId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Stocks_dbo_Branches_BranchId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Products_dbo_Categories_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Invoices_dbo_Customers_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Distributions_dbo_Warehouses_WarehouseId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Invoices_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Sales_dbo_Invoices_InvoiceId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_PurchaseDetail_dbo_Products_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Sales_dbo_Products_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Stocks_dbo_Products_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_PurchaseDetail_dbo_Purchases_PurchaseId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_PurchaseDetail_dbo_Warehouses_WarehouseId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Purchases_dbo_Suppliers_SupplierId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Purchases_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBC_STOREIIModel.FK_dbo_Users_dbo_Roles_RoleId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

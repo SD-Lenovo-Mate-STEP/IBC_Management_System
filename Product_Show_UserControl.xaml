@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="IBC_Management_System.Product_Show_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="790" Loaded="UserControl_Loaded">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="274*"/>
+        </Grid.ColumnDefinitions>
+        <Border Width="240" Height="150" BorderThickness="1" BorderBrush="Black">
+            <Image HorizontalAlignment="Center"  VerticalAlignment="Center" Name="Picture" Stretch="Uniform" />
+        </Border>
+        <Grid Grid.Column="1">
+            <Label Content="Name : " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="218"  Height="26" Name="Name_Product" FontWeight="Bold"/>
+            <Label Content="Price : " HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="218"  Height="26" Name="Price" FontWeight="Bold"/>
+            <Label Content="Stock : " HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="218"  Height="26" Name="Stock" FontWeight="Bold"/>
+            <Label Content="Barcode : " HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="218"  Height="26" Name="Barcode" FontWeight="Bold"/>
+            <Border MouseDown="Button_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Width="548" ></Border>
+            <!--<Button Background="Transparent" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Width="548" Click="Button_Click" Cursor="Hand" Focusable="False"/>-->
+        </Grid>
+    </Grid>
+</UserControl>
